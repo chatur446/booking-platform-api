@@ -1,11 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -24,47 +18,47 @@ enum BookingStatus {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
-  name     String
-  role     Role   @default(ADMIN)
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      Role     @default(ADMIN)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Service {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String
   description String?
   duration    Int
   price       Decimal
-  isActive    Boolean @default(true)
+  isActive    Boolean  @default(true)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  bookings Booking[]
+  bookings    Booking[]
 }
 
 model Booking {
-  id Int @id @default(autoincrement())
+  id              Int             @id @default(autoincrement())
 
-  customerName  String
-  customerEmail String
-  customerPhone String
+  customerName    String
+  customerEmail   String
+  customerPhone   String
 
-  bookingDate DateTime
-  bookingTime String
+  bookingDate     DateTime
+  bookingTime     String
 
-  status BookingStatus @default(PENDING)
+  status          BookingStatus   @default(PENDING)
 
-  notes String?
+  notes           String?
 
-  serviceId Int
-  service   Service @relation(fields: [serviceId], references: [id])
+  serviceId       Int
+  service         Service @relation(fields: [serviceId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
